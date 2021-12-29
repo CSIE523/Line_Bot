@@ -18,9 +18,8 @@ cost_database = []
 list1 = []
 
 class TocMachine(GraphMachine):
-    def __init__(self, **machine_configs):
+    def __init__(self, **machine_configs,):
         self.machine = GraphMachine(model=self, **machine_configs)
-
 
     def is_going_to_start(self, event):
         text = event.message.text
