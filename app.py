@@ -7,6 +7,7 @@ from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
+
 from fsm import TocMachine
 from utils import send_text_message
 
@@ -14,21 +15,92 @@ load_dotenv()
 
 
 machine = TocMachine(
-    states=["user", "state1", "state2"],
+    states=["user", "start", "expense", "climate", "news", "thingandcost","storedata", "printtotal", "clear",
+            "north", "west", "south", "Taipei", "NewTaipei", "Taoyuan", "Taichung", "Tainan", "Kaohsiung"
+           ],
     transitions=[
         {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "state1",
-            "conditions": "is_going_to_state1",
+            "trigger": "advance", "source": "user",
+            "dest": "start", "conditions": "is_going_to_start",
+        },
+        # first
+        {
+            "trigger": "advance", "source": "start",
+            "dest": "expense", "conditions": "is_going_to_expense",
         },
         {
-            "trigger": "advance",
-            "source": "user",
-            "dest": "state2",
-            "conditions": "is_going_to_state2",
+            "trigger": "advance", "source": "start",
+            "dest": "climate", "conditions": "is_going_to_climate",
         },
-        {"trigger": "go_back", "source": ["state1", "state2"], "dest": "user"},
+        {
+            "trigger": "advance", "source": "start",
+            "dest": "news", "conditions": "is_going_to_news",
+        },
+
+        # second expense
+        {
+            "trigger": "advance", "source": "expense",
+            "dest": "thingandcost", "conditions": "is_going_to_thingandcost",
+        },
+        {
+            "trigger": "advance", "source": "expense",
+            "dest": "printtotal", "conditions": "is_going_to_printtotal",
+        },
+        {
+            "trigger": "advance", "source": "expense",
+            "dest": "clear", "conditions": "is_going_to_clear",
+        },
+        # third expense
+        {
+            "trigger": "advance", "source": "thingandcost",
+            "dest": "storedata", "conditions": "is_going_to_storedata",
+        },
+        # second climate
+        {
+            "trigger": "advance", "source": "climate",
+            "dest": "north", "conditions": "is_going_to_north",
+        },
+        {
+            "trigger": "advance", "source": "climate",
+            "dest": "west", "conditions": "is_going_to_west",
+        },
+        {
+            "trigger": "advance", "source": "climate",
+            "dest": "south", "conditions": "is_going_to_south",
+        },
+
+        # third climate
+        {
+            "trigger": "advance", "source": "north",
+            "dest": "Taipei", "conditions": "is_going_to_Taipei",
+        },
+        {
+            "trigger": "advance", "source": "north",
+            "dest": "NewTaipei", "conditions": "is_going_to_NewTaipei",
+        },
+        {
+            "trigger": "advance", "source": "north",
+            "dest": "Taoyuan", "conditions": "is_going_to_Taoyuan",
+        },
+        {
+            "trigger": "advance", "source": "west",
+            "dest": "Taichung", "conditions": "is_going_to_Taichung",
+        },
+        {
+            "trigger": "advance", "source": "south",
+            "dest": "Tainan", "conditions": "is_going_to_Tainan",
+        },
+        {
+            "trigger": "advance", "source": "south",
+            "dest": "Kaohsiung", "conditions": "is_going_to_Kaohsiung",
+        },
+
+        # final
+        {
+            "trigger": "go_back",
+            "source": ["storedata", "printtotal", "clear", "Taipei", "NewTaipei", "Taoyuan", "Taichung", "Tainan", "Kaohsiung", "news"],
+            "dest": "user"
+        },
     ],
     initial="user",
     auto_transitions=False,
@@ -52,7 +124,8 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 
-@app.route("/callback", methods=["POST"])
+#@app.route("/callback", methods=["POST"])
+'''
 def callback():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -71,15 +144,23 @@ def callback():
             continue
         if not isinstance(event.message, TextMessage):
             continue
+        if not isinstance(event.message.text, str):
+            continue
 
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text=event.message.text)
-        )
+        print(f"\nFSM STATE: {machine.state}")
+        print(f"REQUEST BODY: \n{body}")
+        response = machine.advance(event)
+
+        if response == False:
+            send_text_message(event.reply_token, "格式錯誤，請重新輸入!")
+        #line_bot_api.reply_message(
+           # event.reply_token, TextSendMessage(text=event.message.text)
+        #)
 
     return "OK"
+'''
 
-
-@app.route("/webhook", methods=["POST"])
+@app.route("/callback", methods=["POST"])
 def webhook_handler():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -104,7 +185,7 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "Not Entering any State")
+            send_text_message(event.reply_token, "格式錯誤，請重新輸入")
 
     return "OK"
 
@@ -116,5 +197,6 @@ def show_fsm():
 
 
 if __name__ == "__main__":
+
     port = os.environ.get("PORT", 8000)
     app.run(host="0.0.0.0", port=port, debug=True)
