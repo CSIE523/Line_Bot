@@ -7,8 +7,9 @@ import sys
 
 load_dotenv()
 #channel_secret1 = os.getenv("LINE_CHANNEL_SECRET", None)
-channel_secret1="936ac4e50701b967c68f1000861ada35"
-channel_access_token1 = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+channel_secret1 = "936ac4e50701b967c68f1000861ada35"
+#channel_access_token1 = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+channel_access_token1 = "xBCFFP5h7vbmrw05WAN5ZS6WnVNjW7kW9IxkhGWbW0S5/RWgESSdYe/PcDtjQdtfE1e33wnfVuU8QSeCNNKpgbbkjNPDG1yjLEIytT4b9dhobDiJ74ia9l5I4ztPpfgElT3fxtzh+mrbRa6Z70Dd0wdB04t89/1O/w1cDnyilFU="
 if channel_secret1 is None:
     print("Specify LINE_CHANNEL_SECRET as environment variable.")
     sys.exit(1)
