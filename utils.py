@@ -27,11 +27,12 @@ def scrapenews():
 
 def scrapeclimate(region):
     time = datetime.now()
+    global mode
     if time.hour >= 0 and time.hour < 6:
         mode=0
     elif time.hour >= 6 and time.hour < 18:
         mode=1
-    else:
+    elif time.hour >=18 and time.hour <24:
         mode=2
     url = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=' + token + '&format=JSON&locationName=' + str(region)
     Data = requests.get(url)
