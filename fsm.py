@@ -14,8 +14,8 @@ if channel_secret1 is None:
 if channel_access_token1 is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
     sys.exit(1)
-line_bot_api = LineBotApi(channel_access_token1)
-parser = WebhookParser(channel_secret1)
+line_bot_api1 = LineBotApi(channel_access_token1)
+parser1 = WebhookParser(channel_secret1)
 
 #print(channel_access_token)
 item_database = []
@@ -112,7 +112,7 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_start(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -128,7 +128,7 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_expense(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -144,7 +144,7 @@ class TocMachine(GraphMachine):
 
 
     def on_enter_climate(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -192,7 +192,7 @@ class TocMachine(GraphMachine):
         self.go_back()
 
     def on_enter_north(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -207,7 +207,7 @@ class TocMachine(GraphMachine):
         )
 
     def on_enter_west(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -220,7 +220,7 @@ class TocMachine(GraphMachine):
         )
 
     def on_enter_south(self, event):
-        line_bot_api.reply_message(
+        line_bot_api1.reply_message(
             event.reply_token,
             TemplateSendMessage(
                 alt_text='Buttons template',
@@ -236,7 +236,7 @@ class TocMachine(GraphMachine):
     def on_enter_Taipei(self, event):
         city="臺北市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '近 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
@@ -263,7 +263,7 @@ class TocMachine(GraphMachine):
 
         city = "新北市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '近 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
@@ -292,7 +292,7 @@ class TocMachine(GraphMachine):
 
         city = "桃園市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '近 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
@@ -319,7 +319,7 @@ class TocMachine(GraphMachine):
 
         city = "臺中市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '近 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
@@ -346,7 +346,7 @@ class TocMachine(GraphMachine):
 
         city = "臺南市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '近 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
@@ -373,7 +373,7 @@ class TocMachine(GraphMachine):
 
         city = "高雄市"
         res = scrapeclimate(city)
-        line_bot_api.reply_message(event.reply_token, TemplateSendMessage(
+        line_bot_api1.reply_message(event.reply_token, TemplateSendMessage(
             alt_text=city + '未來 6 小時天氣預測',
             template=CarouselTemplate(
                 columns=[
