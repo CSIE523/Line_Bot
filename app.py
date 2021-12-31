@@ -154,7 +154,7 @@ def callback():
         response = machine.advance(event)
 
         if response == False:
-            send_text_message(event.reply_token, "格式錯誤，請重新輸入!(如果是一開始，請輸入""你好""來開始服務)")
+            send_text_message(event.reply_token, "格式錯誤，請重新輸入!(如果是一開始，請輸入\"你好\"來開始服務)")
 
     return "OK"
 
