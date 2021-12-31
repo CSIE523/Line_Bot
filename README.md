@@ -1,13 +1,13 @@
 #TOC Project 2021
-===
+
 A line bot used for recording daily expense, watching weather report and watching daily news.
 
 ## Finite State Machine
-===
+
 ![fsm](./img/show-fsm.png)
 
 ## Usage
-===
+
 The initial state is set to `user`.
 
 Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
