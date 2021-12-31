@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from linebot.models import *
 
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
-channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)g
+channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 load_dotenv()
 
 line_bot_api = LineBotApi(channel_access_token)
