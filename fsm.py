@@ -3,14 +3,21 @@ from utils import *
 from linebot import LineBotApi, WebhookParser
 from dotenv import load_dotenv
 from linebot.models import *
-
+import sys
 
 load_dotenv()
 channel_secret1 = os.getenv("LINE_CHANNEL_SECRET", None)
 channel_access_token1 = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+if channel_secret1 is None:
+    print("Specify LINE_CHANNEL_SECRET as environment variable.")
+    sys.exit(1)
+if channel_access_token1 is None:
+    print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
+    sys.exit(1)
 line_bot_api = LineBotApi(channel_access_token1)
 parser = WebhookParser(channel_secret1)
 
+#print(channel_access_token)
 item_database = []
 cost_database = []
 list1 = []
