@@ -5,13 +5,11 @@ from dotenv import load_dotenv
 from linebot.models import *
 
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
-channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
+channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)g
 load_dotenv()
 
-channel_secret1 = os.getenv("LINE_CHANNEL_SECRET", None)
-channel_access_token1 = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
-line_bot_api = LineBotApi(channel_access_token1)
-parser = WebhookParser(channel_secret1)
+line_bot_api = LineBotApi(channel_access_token)
+parser = WebhookParser(channel_secret)
 
 item_database = []
 cost_database = []
