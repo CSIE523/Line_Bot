@@ -6,11 +6,11 @@ from linebot.models import *
 import sys
 
 load_dotenv()
-channel_secret1 = os.getenv("LINE_CHANNEL_SECRET", None)
+#channel_secret1 = os.getenv("LINE_CHANNEL_SECRET", None)
+channel_secret1="936ac4e50701b967c68f1000861ada35"
 channel_access_token1 = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
 if channel_secret1 is None:
     print("Specify LINE_CHANNEL_SECRET as environment variable.")
-    print("hellofsm")
     sys.exit(1)
 if channel_access_token1 is None:
     print("Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.")
