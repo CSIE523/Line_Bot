@@ -243,5 +243,4 @@ zipp @ file:///tmp/build/80754af9/zipp_1604001098328/work
 zope.event==4.5.0
 zope.interface @ file:///C:/ci/zope.interface_1602002494740/work
 bs4==0.0.1
-bs4==0.0.0
-BeautifulSoup4==4.10.1
+beautifulsoup4==4.10.1
