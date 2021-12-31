@@ -14,7 +14,7 @@ Every time `user` state is triggered to `advance` to another state, it will `go_
 
 	* 記帳:  
 	  	1.輸入項目和金額  
-	  		Enter an item and cost to record.  
+	  	[TAB]Enter an item and cost to record.  
 		2.總金額消費  
 	  		Display the total cost of your items.  
 		3.清空  
