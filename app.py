@@ -124,8 +124,8 @@ line_bot_api = LineBotApi(channel_access_token)
 parser = WebhookParser(channel_secret)
 
 
-#@app.route("/callback", methods=["POST"])
-'''
+@app.route("/callback", methods=["POST"])
+
 def callback():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
@@ -152,15 +152,12 @@ def callback():
         response = machine.advance(event)
 
         if response == False:
-            send_text_message(event.reply_token, "格式錯誤，請重新輸入!")
-        #line_bot_api.reply_message(
-           # event.reply_token, TextSendMessage(text=event.message.text)
-        #)
+            send_text_message(event.reply_token, "格式錯誤，請重新輸入!(如果是一開始，請輸入""你好""來開始服務)")
 
     return "OK"
-'''
 
-@app.route("/callback", methods=["POST"])
+
+@app.route("/webhook", methods=["POST"])
 def webhook_handler():
     signature = request.headers["X-Line-Signature"]
     # get request body as text
